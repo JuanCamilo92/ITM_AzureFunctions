@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctions.Functions", "AzureFunctions.Functions\AzureFunctions.Functions.csproj", "{55E56D60-2542-4A49-A794-BE6CBB3932DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctions.Common", "AzureFunctions.Common\AzureFunctions.Common.csproj", "{7B321443-7595-4CD8-83C0-2AF2ACD4F3CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctions.Common", "AzureFunctions.Common\AzureFunctions.Common.csproj", "{7B321443-7595-4CD8-83C0-2AF2ACD4F3CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureFunctions.Test", "AzureFunctions.Test\AzureFunctions.Test.csproj", "{850344C0-7073-4ED7-8869-D08A65440A31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureFunctions.Test", "AzureFunctions.Test\AzureFunctions.Test.csproj", "{850344C0-7073-4ED7-8869-D08A65440A31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
