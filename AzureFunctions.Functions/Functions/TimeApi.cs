@@ -281,8 +281,8 @@ namespace AzureFunctions.Functions.Functions
             [Table("consolidated", Connection = "AzureWebJobsStorage")] CloudTable consolidatedTable,
             ILogger log)
         {
-            TableQuery<TimeEntity> query = new TableQuery<TimeEntity>();
-            TableQuerySegment<TimeEntity> consolidated = await consolidatedTable.ExecuteQuerySegmentedAsync(query, null);
+            TableQuery<ConsolidatedEntity> query = new TableQuery<ConsolidatedEntity>();
+            TableQuerySegment<ConsolidatedEntity> consolidated = await consolidatedTable.ExecuteQuerySegmentedAsync(query, null);
 
             string message = "NRetrieved all times.";
             log.LogInformation(message);
