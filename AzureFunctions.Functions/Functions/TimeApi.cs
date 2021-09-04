@@ -147,7 +147,7 @@ namespace AzureFunctions.Functions.Functions
         [FunctionName(nameof(DeleteTime))]
         public static async Task<IActionResult> DeleteTime(
             [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "Time/{id}")] HttpRequest req,
-            [Table("time", "TIME", "{id}", Connection = "AzureWebJobsStorage")] TimeEntity timeEntity,
+            [Table("time", "time", "{id}", Connection = "AzureWebJobsStorage")] TimeEntity timeEntity,
             [Table("time", Connection = "AzureWebJobsStorage")] CloudTable timeTable,
             string id,
             ILogger log)
