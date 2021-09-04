@@ -114,29 +114,8 @@ namespace AzureFunctions.Functions.Functions
             });
         }
 
-        [FunctionName(nameof(GetAllTime))]
-        public static async Task<IActionResult> GetAllTime(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Time")] HttpRequest req,
-            [Table("time", Connection = "AzureWebJobsStorage")] CloudTable timeTable,
-            ILogger log)
-        {
-            TableQuery<TimeEntity> query = new TableQuery<TimeEntity>();
-            TableQuerySegment<TimeEntity> times = await timeTable.ExecuteQuerySegmentedAsync(query, null);
-
-            string message = "NRetrieved all times.";
-            log.LogInformation(message);
-
-
-            return new OkObjectResult(new Response
-            {
-                IsSuccess = true,
-                Message = message,
-                Result = times
-            });
-        }
-
         [FunctionName(nameof(GetTimeById))]
-        public static IActionResult GetTimeById(
+        public static async Task<IActionResult> GetTimeById(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Time/{id}")] HttpRequest req,
             [Table("time", "TIME", "{id}", Connection = "AzureWebJobsStorage")] TimeEntity timeEntity,
             string id,
@@ -194,6 +173,27 @@ namespace AzureFunctions.Functions.Functions
                 IsSuccess = true,
                 Message = message,
                 Result = timeEntity
+            });
+        }
+
+        [FunctionName(nameof(GetAllTime))]
+        public static async Task<IActionResult> GetAllTime(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Time")] HttpRequest req,
+            [Table("time", Connection = "AzureWebJobsStorage")] CloudTable timeTable,
+            ILogger log)
+        {
+            TableQuery<TimeEntity> query = new TableQuery<TimeEntity>();
+            TableQuerySegment<TimeEntity> times = await timeTable.ExecuteQuerySegmentedAsync(query, null);
+
+            string message = "NRetrieved all times.";
+            log.LogInformation(message);
+
+
+            return new OkObjectResult(new Response
+            {
+                IsSuccess = true,
+                Message = message,
+                Result = times
             });
         }
 

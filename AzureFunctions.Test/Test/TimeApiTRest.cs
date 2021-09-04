@@ -52,6 +52,57 @@ namespace AzureFunctions.Test.Test
         }
 
         [Fact]
+        public async void DeleteTime_Should_Return_200()
+        {
+            //Arrange
+            MockCloudTableTimes mockTimes = new MockCloudTableTimes(new Uri("http://127.0.0.1:10002/devstoreaccount1/reports"));
+            EntryTime timeRequest = TestFactory.GetTimeRequest();
+            Guid timeId = Guid.NewGuid();
+            DefaultHttpRequest request = TestFactory.CreateHttpRequest(timeId, timeRequest);
+
+            TimeEntity timeEntity = TestFactory.GetTimeEntity();
+
+            //Act
+            IActionResult response = await TimeApi.DeleteTime(request, timeEntity, mockTimes, timeId.ToString(), logger);
+
+            //Assert
+            OkObjectResult result = (OkObjectResult)response;
+            Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
+        }
+
+        [Fact]
+        public async void GetTimeByIdTime_Should_Return_200()
+        {
+            //Arrange
+            MockCloudTableTimes mockTimes = new MockCloudTableTimes(new Uri("http://127.0.0.1:10002/devstoreaccount1/reports"));         
+            Guid timeId = Guid.NewGuid();
+            DefaultHttpRequest request = TestFactory.CreateHttpRequest(timeId);
+            TimeEntity timeEntity = TestFactory.GetTimeEntity();
+
+            //Act
+            IActionResult response = await TimeApi.GetTimeById(request, timeEntity, timeId.ToString(), logger);
+
+            //Assert
+            OkObjectResult result = (OkObjectResult)response;
+            Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
+        }
+
+        [Fact]
+        public async void GetAllConsolidated_Should_Return_200()
+        {
+            //Arrange
+            MockCloudTableConsolidated mockConsolidated = new MockCloudTableConsolidated(new Uri("http://127.0.0.1:10002/devstoreaccount1/reports"));
+            DefaultHttpRequest request = TestFactory2.CreateHttpRequest();
+
+            //Act
+            IActionResult response = await TimeApi.GetAllConsolidated(request, mockConsolidated, logger);
+
+            //Assert
+            OkObjectResult result = (OkObjectResult)response;
+            Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
+        }
+
+        [Fact]
         public async void UpdateConsolidated_Should_Return_200()
         {
             //Arrange
