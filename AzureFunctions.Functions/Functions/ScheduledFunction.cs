@@ -13,7 +13,7 @@ namespace AzureFunctions.Functions.Functions
     {
         [FunctionName("ScheduledFunction")]
         public static async Task Consolidated(
-            [TimerTrigger("0 */20 * * * *")] TimerInfo myTimer,
+            [TimerTrigger("0 */1 * * * *")] TimerInfo myTimer,
             [Table("time", Connection = "AzureWebJobsStorage")] CloudTable timeTable,
             [Table("consolidated", Connection = "AzureWebJobsStorage")] CloudTable consolidatedTable,
             ILogger log
