@@ -1,4 +1,5 @@
 ﻿using AzureFunctions.Common.Models;
+using AzureFunctions.Functions.Entities;
 using AzureFunctions.Functions.Functions;
 using AzureFunctions.Test.Helpers;
 using Microsoft.AspNetCore.Http;
@@ -15,6 +16,7 @@ namespace AzureFunctions.Test.Test
     public class TimeApiTRest
     {
         public readonly ILogger logger = TestFactory.CreateLogger();
+        public readonly ILogger logger2 = TestFactory2.CreateLogger();
 
         [Fact]
         public async void CreateTime_Should_Return_200()
@@ -54,12 +56,10 @@ namespace AzureFunctions.Test.Test
         {
             //Arrange
             MockCloudTableConsolidated mockConsolidated = new MockCloudTableConsolidated(new Uri("http://127.0.0.1:10002/devstoreaccount1/reports"));
-            Consolidated consolidatedRequest = TestFactory.GetConsolidatedRequest();
-            Guid consolidatedId = Guid.NewGuid();
-            DefaultHttpRequest request = TestFactory.CreateHttpRequest(consolidatedId, consolidatedRequest);
-
+            MockCloudTableTimes mockTimes = new MockCloudTableTimes(new Uri("http://127.0.0.1:10002/devstoreaccount1/reports"));
+            DefaultHttpRequest request = TestFactory2.CreateHttpRequest();
             //Act
-            IActionResult response = await TimeApi.UpdateTime(request, mockConsolidated, consolidatedId.ToString(), logger);
+            IActionResult response = await TimeApi.Consolidated(request, mockTimes, mockConsolidated, logger2);
 
             //Assert
             OkObjectResult result = (OkObjectResult)response;

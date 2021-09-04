@@ -10,46 +10,45 @@ using System.IO;
 
 namespace AzureFunctions.Test.Helpers
 {
-    public class TestFactory
+    public class TestFactory2
     {
-        public static TimeEntity GetTimeEntity()
+        public static ConsolidatedEntity GetConsolidatedEntity()
         {
-            return new TimeEntity
+            return new ConsolidatedEntity
             {
+                EmployedId = 98,
                 DateEmployed = DateTime.UtcNow,
+                Minutes = 60,
                 ETag = "*",
-                Consolidated = false,
-                PartitionKey = "TIME",
-                RowKey = Guid.NewGuid().ToString(),
-                EntryOrExit = "Entrada",
-                EmployedId = 99
+                PartitionKey = "consolidated",
+                RowKey = Guid.NewGuid().ToString()
             };
         }
 
-        public static DefaultHttpRequest CreateHttpRequest(Guid timeId, EntryTime timeRequest)
+        public static DefaultHttpRequest CreateHttpRequest(Guid consolidatedId, Consolidated consolidatedRequest)
         {
-            string request = JsonConvert.SerializeObject(timeRequest);
+            string request = JsonConvert.SerializeObject(consolidatedRequest);
             return new DefaultHttpRequest(new DefaultHttpContext())
             {
                 Body = GenerateStreamFromString(request),
-                Path = $"/{timeId}"
+                Path = $"/{consolidatedId}"
             };
         }
 
-        public static DefaultHttpRequest CreateHttpRequest(EntryTime timeRequest)
+        public static DefaultHttpRequest CreateHttpRequest(Consolidated consolidatedRequest)
         {
-            string request = JsonConvert.SerializeObject(timeRequest);
+            string request = JsonConvert.SerializeObject(consolidatedRequest);
             return new DefaultHttpRequest(new DefaultHttpContext())
             {
                 Body = GenerateStreamFromString(request)
             };
         }
 
-        public static DefaultHttpRequest CreateHttpRequest(Guid timeId)
+        public static DefaultHttpRequest CreateHttpRequest(Guid consolidatedId)
         {
             return new DefaultHttpRequest(new DefaultHttpContext())
             {
-                Path = $"/{timeId}"
+                Path = $"/{consolidatedId}"
             };
         }
         public static DefaultHttpRequest CreateHttpRequest()
@@ -58,14 +57,13 @@ namespace AzureFunctions.Test.Helpers
             return new DefaultHttpRequest(new DefaultHttpContext());
         }
 
-        public static EntryTime GetTimeRequest()
+        public static Consolidated GetConsolidatedRequest()
         {
-            return new EntryTime
+            return new Consolidated
             {
                 DateEmployed = DateTime.UtcNow,
-                Consolidated = false,
-                EntryOrExit = "Entrada",
-                EmployedId = 99
+                Minutes = 40,
+                EmployedId = 97
             };
         }
 

@@ -46,7 +46,7 @@ namespace AzureFunctions.Functions.Functions
                 DateEmployed = time.DateEmployed,
                 ETag = "*",
                 Consolidated = false,
-                PartitionKey = "TIME",
+                PartitionKey = "time",
                 RowKey = Guid.NewGuid().ToString(),
                 EntryOrExit = time.EntryOrExit,
                 EmployedId = time.EmployedId
@@ -199,7 +199,7 @@ namespace AzureFunctions.Functions.Functions
 
         [FunctionName(nameof(Consolidated))]
         public static async Task<IActionResult> Consolidated(
-           [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Consolidated")] HttpRequest req,
+           [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "Consolidated")] HttpRequest req,
            [Table("time", Connection = "AzureWebJobsStorage")] CloudTable timeTable,
            [Table("consolidated", Connection = "AzureWebJobsStorage")] CloudTable consolidatedTable,
            ILogger log

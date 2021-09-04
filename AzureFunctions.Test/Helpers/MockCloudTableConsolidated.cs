@@ -27,7 +27,7 @@ namespace AzureFunctions.Test.Helpers
             return await Task.FromResult(new TableResult
             {
                 HttpStatusCode = 200,
-                Result = TestFactory.GetConsolidatedEntity()
+                Result = TestFactory2.GetConsolidatedEntity()
             });
         }
     }
