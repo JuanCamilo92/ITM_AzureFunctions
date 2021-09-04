@@ -80,7 +80,7 @@ namespace AzureFunctions.Functions.Functions
             EntryTime time = JsonConvert.DeserializeObject<EntryTime>(requestBody);
 
             //validate id
-            TableOperation findOperation = TableOperation.Retrieve<TimeEntity>("TIME", id);
+            TableOperation findOperation = TableOperation.Retrieve<TimeEntity>("time", id);
             TableResult findResult = await timeTable.ExecuteAsync(findOperation);
 
             if (findResult.Result == null)
@@ -117,7 +117,7 @@ namespace AzureFunctions.Functions.Functions
         [FunctionName(nameof(GetTimeById))]
         public static async Task<IActionResult> GetTimeById(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "Time/{id}")] HttpRequest req,
-            [Table("time", "TIME", "{id}", Connection = "AzureWebJobsStorage")] TimeEntity timeEntity,
+            [Table("time", "time", "{id}", Connection = "AzureWebJobsStorage")] TimeEntity timeEntity,
             string id,
             ILogger log)
         {
